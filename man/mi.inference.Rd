@@ -67,4 +67,7 @@ them jointly.
 \references{
 See Rubin (1987) or Schafer (1996), Chapter 4.
 }
+\keyword{
+htest
+}
 % Converted by Sd2Rd version 0.3-3.

@@ -22,4 +22,7 @@ The random number generator seed must be set at least once
 by this function before the simulation or imputation functions
 in this package (\code{da.norm}, etc.) can be used.
 }
+\keyword{
+distribution
+}
 % Converted by Sd2Rd version 0.3-3.
