@@ -20,7 +20,7 @@ of missingness, with the most observed (least missing) variable on the
 left and the least observed variable on the right.
 }
 \usage{
-mda.norm(s, start, steps=1, showits=F)
+mda.norm(s, theta, steps=1, showits=F)
 }
 \arguments{
 \item{s}{
