@@ -31,8 +31,8 @@ See Section 5.3.5 of Schafer (1996)
 }
 \examples{
 data(mdata)
-s_prelim.norm(mdata)   #do preliminary manipulations
-thetahat_em.norm(s)   #compute MLE
+s <- prelim.norm(mdata)   #do preliminary manipulations
+thetahat <- em.norm(s)   #compute MLE
 loglik.norm(s,thetahat)  #loglikelihood at the MLE
 }
 \keyword{multivariate}

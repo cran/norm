@@ -46,11 +46,11 @@ See Section 5.4.2 of Schafer (1996).
 }
 \examples{
 data(mdata)
-s_prelim.norm(mdata)   #do preliminary manipulations
-params_list(1,.5,rep(0,ncol(mdata)), .5*diag(rep(1,ncol(mdata)))) # gives widely dispersed values
+s <- prelim.norm(mdata)   #do preliminary manipulations
+params <- list(1,.5,rep(0,ncol(mdata)), .5*diag(rep(1,ncol(mdata)))) # gives widely dispersed values
 rngseed(1234567)
-start_ninvwish(s,params)  # draw a variate
-thetahat_em.norm(s,start=start) # run EM from this starting value
+start <- ninvwish(s,params)  # draw a variate
+thetahat <- em.norm(s,start=start) # run EM from this starting value
 }
 \keyword{multivariate}
 % Converted by Sd2Rd version 0.3-3.

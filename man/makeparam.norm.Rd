@@ -34,13 +34,13 @@ value for \code{em.norm}, \code{mda.norm}, or \code{mdamet.norm}.
 }
 \examples{
 data(mdata)
-s_prelim.norm(mdata)   #do preliminary manipulations
-thetahat_em.norm(s)   #compute mle
-thetahat_getparam.norm(s,thetahat,corr=T)   #extract parameters
+s <- prelim.norm(mdata)   #do preliminary manipulations
+thetahat <- em.norm(s)   #compute mle
+thetahat <- getparam.norm(s,thetahat,corr=T)   #extract parameters
 thetahat$r   #look at mle correlations
-thetahat$r[1,2]_.5   #tweak a parameter
-thetahat_makeparam.norm(s,thetahat)   #convert to packed storage
-thetahat_em.norm(s,thetahat) #run EM again from new starting value
+thetahat$r[1,2] <- .5   #tweak a parameter
+thetahat <- makeparam.norm(s,thetahat)   #convert to packed storage
+thetahat <- em.norm(s,thetahat) #run EM again from new starting value
 }
 \keyword{regression}
 % Converted by Sd2Rd version 0.3-3.

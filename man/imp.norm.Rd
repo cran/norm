@@ -47,10 +47,10 @@ See Section 5.4.1 of Schafer (1996).
 }
 \examples{
 data(mdata)
-s_prelim.norm(mdata)   #do preliminary manipulations
-thetahat_em.norm(s)   #find the mle
+s <- prelim.norm(mdata)   #do preliminary manipulations
+thetahat <- em.norm(s)   #find the mle
 rngseed(1234567)   #set random number generator seed
-ximp_imp.norm(s,thetahat,mdata)  #impute missing data under the MLE
+ximp <- imp.norm(s,thetahat,mdata)  #impute missing data under the MLE
 }
 \keyword{regression}
 % Converted by Sd2Rd version 0.3-3.

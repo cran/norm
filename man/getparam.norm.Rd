@@ -47,8 +47,8 @@ matrix of correlations.
 }
 \examples{
 data(mdata)
-s_prelim.norm(mdata)   #do preliminary manipulations
-thetahat_em.norm(s)   #compute MLE
+s <- prelim.norm(mdata)   #do preliminary manipulations
+thetahat <- em.norm(s)   #compute MLE
 getparam.norm(s,thetahat,corr=T)$r #look at estimated correlations
 }
 \keyword{regression}

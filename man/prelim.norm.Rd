@@ -42,7 +42,7 @@ See Section 5.3.1 of Schafer (1996).
 }
 \examples{
 data(mdata)
-s_prelim.norm(mdata)  #do preliminary manipulations 
+s <- prelim.norm(mdata)  #do preliminary manipulations 
 s$nmis[s$co] #look at nmis 
 s$r #look at missing data patterns
 }

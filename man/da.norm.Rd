@@ -82,10 +82,10 @@ See Chapter 5 of Schafer (1996).
 }
 \examples{
 data(mdata)
-s _ prelim.norm(mdata)
-thetahat_em.norm(s)   #find the MLE for a starting value
+s  <-  prelim.norm(mdata)
+thetahat <- em.norm(s)   #find the MLE for a starting value
 rngseed(1234567)   #set random number generator seed
-theta_da.norm(s,thetahat,steps=20,showits=T)  # take 20 steps
+theta <- da.norm(s,thetahat,steps=20,showits=T)  # take 20 steps
 getparam.norm(s,theta) # look at result
 }
 \keyword{distribution}

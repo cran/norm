@@ -68,8 +68,8 @@ See Section 5.3 of Schafer (1994).
 }
 \examples{
 data(mdata)
-s_prelim.norm(mdata)   #do preliminary manipulations
-thetahat_em.norm(s)   #compute mle
+s <- prelim.norm(mdata)   #do preliminary manipulations
+thetahat <- em.norm(s)   #compute mle
 getparam.norm(s,thetahat,corr=T)$r #look at estimated correlations
 }
 \keyword{regression}

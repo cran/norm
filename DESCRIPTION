@@ -1,6 +1,6 @@
 Package: norm
-Version: 1.0-5
-Date: 2001/05/12
+Version: 1.0-6
+Date: 2001/05/13
 Title: Analysis of multivariate normal datasets with missing values
 Author:	Ported to R by Alvaro A. Novo <alvaro@novo-online.net>.
 	Original by Joseph L. Schafer <jls@stat.psu.edu>. 
