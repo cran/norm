@@ -49,7 +49,7 @@ matrix of correlations.
 data(mdata)
 s <- prelim.norm(mdata)   #do preliminary manipulations
 thetahat <- em.norm(s)   #compute MLE
-getparam.norm(s,thetahat,corr=T)$r #look at estimated correlations
+getparam.norm(s,thetahat,corr=TRUE)$r #look at estimated correlations
 }
 \keyword{regression}
 % Converted by Sd2Rd version 0.3-3.

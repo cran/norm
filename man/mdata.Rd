@@ -11,5 +11,5 @@ Schafer, J.L.(1997) \emph{Analysis of Incomplete Multivariate Data},
 Chapman & Hall, London. ISBN: 0412040611
 }
 \keyword{
-data
+datasets
 }

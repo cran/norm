@@ -70,7 +70,7 @@ See Section 5.3 of Schafer (1994).
 data(mdata)
 s <- prelim.norm(mdata)   #do preliminary manipulations
 thetahat <- em.norm(s)   #compute mle
-getparam.norm(s,thetahat,corr=T)$r #look at estimated correlations
+getparam.norm(s,thetahat,corr=TRUE)$r #look at estimated correlations
 }
 \keyword{regression}
 % Converted by Sd2Rd version 0.3-3.

@@ -62,7 +62,7 @@ data(mdata)
 s <- prelim.norm(mdata)
 thetahat <- em.norm(s)   #find the MLE for a starting value
 rngseed(1234567)   #set random number generator seed
-theta <- mda.norm(s,thetahat,steps=20,showits=T)  # take 20 steps
+theta <- mda.norm(s,thetahat,steps=20,showits=TRUE)  # take 20 steps
 getparam.norm(s,theta) # look at result
 }
 \keyword{multivariate}

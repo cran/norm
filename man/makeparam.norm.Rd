@@ -36,7 +36,7 @@ value for \code{em.norm}, \code{mda.norm}, or \code{mdamet.norm}.
 data(mdata)
 s <- prelim.norm(mdata)   #do preliminary manipulations
 thetahat <- em.norm(s)   #compute mle
-thetahat <- getparam.norm(s,thetahat,corr=T)   #extract parameters
+thetahat <- getparam.norm(s,thetahat,corr=TRUE)   #extract parameters
 thetahat$r   #look at mle correlations
 thetahat$r[1,2] <- .5   #tweak a parameter
 thetahat <- makeparam.norm(s,thetahat)   #convert to packed storage
