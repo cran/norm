@@ -14,7 +14,7 @@ posterior distribution of the parameter given the observed data and
 the imputed data (P-step).
 }
 \usage{
-da.norm(s, start, prior, steps=1, showits=F, return.ymis=F)
+da.norm(s, start, prior, steps=1, showits=FALSE, return.ymis=FALSE)
 }
 \arguments{
 \item{s}{
@@ -54,11 +54,11 @@ imputed values are useful for forming Rao-Blackwellized estimates of
 posterior summaries.
 }}
 \value{
-if \code{return.ymis=F}, returns a parameter vector, the result of the last
+if \code{return.ymis=FALSE}, returns a parameter vector, the result of the last
 P-step. If the value of \code{steps} was large enough to guarantee
 approximate stationarity, then this parameter can be regarded as a
 proper draw from the observed-data posterior, independent of \code{start}.
-If \code{return.ymis=T}, then this function returns a list of the following
+If \code{return.ymis=TRUE}, then this function returns a list of the following
 two components:
 
 \item{parameter}{

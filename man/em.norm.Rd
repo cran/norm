@@ -9,7 +9,7 @@ data using the EM algorithm. Can also be used to find a posterior mode
 under a normal-inverted Wishart prior supplied by the user.
 }
 \usage{
-em.norm(s, start, showits=T, maxits=1000, criterion=0.0001, prior)
+em.norm(s, start, showits=TRUE, maxits=1000, criterion=0.0001, prior)
 }
 \arguments{
 \item{s}{

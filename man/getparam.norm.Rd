@@ -8,7 +8,7 @@ Takes a parameter vector, such as one produced by em.norm or da.norm,
 and returns a list of parameters on the original scale.
 }
 \usage{
-getparam.norm(s, theta, corr=F)
+getparam.norm(s, theta, corr=FALSE)
 }
 \arguments{
 \item{s}{
@@ -24,8 +24,8 @@ if \code{TRUE}, computes means, standard deviations, and a correlation
 matrix. If \code{FALSE}, computes means and a covariance matrix.
 }}
 \value{
-if \code{corr=F}, a list containing the components \code{mu} and \code{sigma}; if
-\code{corr=T}, a list containing the components \code{mu}, \code{sdv}, and \code{r}.  The
+if \code{corr=FALSE}, a list containing the components \code{mu} and \code{sigma}; if
+\code{corr=TRUE}, a list containing the components \code{mu}, \code{sdv}, and \code{r}.  The
 components are:
 
 \item{mu}{

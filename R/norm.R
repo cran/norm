@@ -61,11 +61,11 @@ prelim.norm <- function(x){
     nmdp=nmdp,npatt=npatt,xbar=xbar,sdv=sdv,d=d,psi=psi,sj=sj,
     nmon=nmon,last=last,layer=layer,nlayer=nlayer)}
 #***********************************************************************
-# Retrieves means and covariances from theta. If corr=F, returns
+# Retrieves means and covariances from theta. If corr=FALSE , returns
 # a list containing a vector of means and a covariance matrix. If
-# corr=T, returns a list containing a vector of means, a vector of
+# corr=TRUE , returns a list containing a vector of means, a vector of
 # standard deviations, and a correlation matrix.
-getparam.norm <- function(s,theta,corr=F){
+getparam.norm <- function(s,theta,corr=FALSE ){
   mu <- theta[s$psi[1,2:(s$p+1)]]*s$sdv + s$xbar
   names(mu) <- dimnames(s$x)[[2]]
   sigma <- theta[s$psi[2:(s$p+1),2:(s$p+1)]]
@@ -99,7 +99,7 @@ makeparam.norm <- function(s,thetalist){
 #***********************************************************************
 # Finds posterior mode of theta under the multivariate
 # normal model. If no prior is specified, finds the mle.
-em.norm <- function(s,start,showits=T,maxits=1000,criterion=.0001,
+em.norm <- function(s,start,showits=TRUE ,maxits=1000,criterion=.0001,
      prior){
   s$x <- .na.to.snglcode(s$x,999)
   if(missing(start)){
@@ -117,7 +117,7 @@ em.norm <- function(s,start,showits=T,maxits=1000,criterion=.0001,
   tobs <- .Fortran("tobsn",s$d,numeric(s$d),s$p,s$psi,s$n,s$x,s$npatt,
     s$r,s$mdpst,s$nmdp,tmp)[[2]]
 # iterate to mle
-  it <- 0; converged <- F
+  it <- 0; converged <- FALSE
   if(showits) cat(paste("Iterations of EM:","\n"))
   while((!converged)&(it<maxits)){
   old <- start
@@ -166,7 +166,7 @@ ninvwish <- function(s,params){
 #***********************************************************************
 # Data augmentation for the multivariate normal.
 # Produces a new draw of theta from its posterior distribution. 
-da.norm <- function(s,start,prior,steps=1,showits=F,return.ymis=F){
+da.norm <- function(s,start,prior,steps=1,showits=FALSE ,return.ymis=FALSE ){
   s$x <- .na.to.snglcode(s$x,999)
   tmpi <- as.integer(numeric(s$p)); tmpr <- as.double((numeric(s$p)))
   tobs <- .Fortran("tobsn",s$d,numeric(s$d),s$p,s$psi,s$n,s$x,s$npatt,
@@ -189,7 +189,7 @@ da.norm <- function(s,start,prior,steps=1,showits=F,return.ymis=F){
       matrix(0,s$p,s$p),tmpr,start,tmpi)[[5]]}
   if(showits)cat("\n")
   if(return.ymis){
-    ymis <- tmp[[8]]*matrix(s$sdv,s$n,s$p,T)+matrix(s$xbar,s$n,s$p,T)
+    ymis <- tmp[[8]]*matrix(s$sdv,s$n,s$p,TRUE)+matrix(s$xbar,s$n,s$p,TRUE)
     ymis <- ymis[s$ro,];ymis <- ymis[s$x[s$ro,]==999]
     start <- list(parameter=start,ymis=ymis)}
   start}
@@ -202,7 +202,7 @@ imp.norm <- function(s,theta,x){
     s$r,s$mdpst,s$nmdp,tmpi)[[2]]
   s$x <- .Fortran("is1n",s$d,theta,theta,tobs,s$p,s$psi,s$n,s$x,
       s$npatt,s$r,s$mdpst,s$nmdp,tmpi,tmpi,tmpr,theta)[[8]]
-  s$x <- s$x*matrix(s$sdv,s$n,s$p,T)+matrix(s$xbar,s$n,s$p,T)
+  s$x <- s$x*matrix(s$sdv,s$n,s$p,TRUE)+matrix(s$xbar,s$n,s$p,TRUE)
   s$x <- s$x[s$ro,]
   if(!missing(x))x[is.na(x)] <- s$x[is.na(x)]
   else{x <- s$x; storage.mode(x) <- "double"}
@@ -210,7 +210,7 @@ imp.norm <- function(s,theta,x){
 #***********************************************************************
 # Monotone data augmentation for the multivariate normal.
 # Produces a new draw of theta from its posterior distribution. 
-mda.norm <- function(s,theta,steps=1,showits=F){
+mda.norm <- function(s,theta,steps=1,showits=FALSE ){
   s$x <- .na.to.snglcode(s$x,999)
   tobs <- .Fortran("tobsmn",s$p,s$psi,s$n,s$x,s$npatt,s$r,s$mdpst,s$nmdp,
     s$last,integer(s$p),s$sj,s$layer,s$nlayer,s$d,
