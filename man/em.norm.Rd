@@ -72,5 +72,5 @@ s_prelim.norm(mdata)   #do preliminary manipulations
 thetahat_em.norm(s)   #compute mle
 getparam.norm(s,thetahat,corr=T)$r #look at estimated correlations
 }
-\keyword{normal}
+\keyword{regression}
 % Converted by Sd2Rd version 0.3-3.

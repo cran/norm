@@ -51,5 +51,5 @@ prior_list(0,.5,rep(0,ncol(mdata)),
 thetahat_em.norm(s,prior=prior)   #compute posterior mode
 logpost.norm(s,thetahat,prior)  #log-posterior at mode
 }
-\keyword{normal}
+\keyword{multivariate}
 % Converted by Sd2Rd version 0.3-3.

@@ -65,5 +65,5 @@ rngseed(1234567)   #set random number generator seed
 theta_mda.norm(s,thetahat,steps=20,showits=T)  # take 20 steps
 getparam.norm(s,theta) # look at result
 }
-\keyword{normal}
+\keyword{multivariate}
 % Converted by Sd2Rd version 0.3-3.

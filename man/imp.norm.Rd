@@ -52,5 +52,5 @@ thetahat_em.norm(s)   #find the mle
 rngseed(1234567)   #set random number generator seed
 ximp_imp.norm(s,thetahat,mdata)  #impute missing data under the MLE
 }
-\keyword{normal}
+\keyword{regression}
 % Converted by Sd2Rd version 0.3-3.

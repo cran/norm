@@ -16,5 +16,5 @@ mi.inference             Multiple imputation inference
                          code
 ninvwish                 Random normal-inverted Wishart variate
 prelim.norm              Preliminary manipulations for a matrix of
-                         incomplete  continuous data.
+                         incomplete continuous data.
 rngseed                  Initialize random number generator seed

@@ -42,5 +42,5 @@ thetahat$r[1,2]_.5   #tweak a parameter
 thetahat_makeparam.norm(s,thetahat)   #convert to packed storage
 thetahat_em.norm(s,thetahat) #run EM again from new starting value
 }
-\keyword{normal}
+\keyword{regression}
 % Converted by Sd2Rd version 0.3-3.

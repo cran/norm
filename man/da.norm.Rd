@@ -88,5 +88,5 @@ rngseed(1234567)   #set random number generator seed
 theta_da.norm(s,thetahat,steps=20,showits=T)  # take 20 steps
 getparam.norm(s,theta) # look at result
 }
-\keyword{normal}
+\keyword{distribution}
 % Converted by Sd2Rd version 0.3-3.

@@ -35,5 +35,5 @@ s_prelim.norm(mdata)   #do preliminary manipulations
 thetahat_em.norm(s)   #compute MLE
 loglik.norm(s,thetahat)  #loglikelihood at the MLE
 }
-\keyword{normal}
+\keyword{multivariate}
 % Converted by Sd2Rd version 0.3-3.

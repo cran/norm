@@ -46,5 +46,5 @@ s_prelim.norm(mdata)  #do preliminary manipulations
 s$nmis[s$co] #look at nmis 
 s$r #look at missing data patterns
 }
-\keyword{normal}
+\keyword{multivariate}
 % Converted by Sd2Rd version 0.3-3.

@@ -52,5 +52,5 @@ rngseed(1234567)
 start_ninvwish(s,params)  # draw a variate
 thetahat_em.norm(s,start=start) # run EM from this starting value
 }
-\keyword{normal}
+\keyword{multivariate}
 % Converted by Sd2Rd version 0.3-3.
