@@ -15,7 +15,7 @@ Changes missing value code to NA. It's called from
 }
 \item{mvcode}{internal input of 'prelim.norm'.
 }
-}}
+}
 \value{
 Initial data object with missing values code changed to NA.
 }

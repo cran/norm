@@ -9,14 +9,14 @@ It's called internally by other functions in the package, e.g.,
 \emph{'prelim.norm'}.
 }
 \usage{
-.code.to.na(x, mvcode)
+.na.to.snglcode(x, mvcode)
 }
 \arguments{
 \item{x}{data object.
 }
 \item{mvcode}{internal input of 'prelim.norm'.
 }
-}}
+}
 \value{
 Initial data object with missing values code precision changed to
 sinlge.

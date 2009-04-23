@@ -40,21 +40,21 @@ prelim.norm <- function(x){
   if(sum(is.na(x))<length(x)){
     mvcode <- as.double(max(x[!is.na(x)])+1000)
     x <- .na.to.snglcode(x,mvcode)
-    tmp <- .Fortran("ctrsc",x,n,p,numeric(p),numeric(p),mvcode)
+    tmp <- .Fortran("ctrsc",x,n,p,numeric(p),numeric(p),mvcode,PACKAGE="norm")
     x <- tmp[[1]]; xbar <- tmp[[4]]; sdv <- tmp[[5]]
     x <- .code.to.na(x,mvcode)}
   if(sum(is.na(x))==length(x)){
     xbar <- rep(0,p); sdv <- rep(1,p)}  
 # form matrix of packed storage indices
   d <- as.integer((2+3*p+p^2)/2)
-  psi <- .Fortran("mkpsi",p,matrix(as.integer(0),p+1,p+1))[[2]]
+  psi <- .Fortran("mkpsi",p,matrix(as.integer(0),p+1,p+1),PACKAGE="norm")[[2]]
 # other bookkeeping quantities
   if(npatt>1) nmdp <- as.integer(c(mdpst[-1],n+1)-mdpst)
   if(npatt==1) nmdp <- n
-  sj <- .Fortran("sjn",p,npatt,r,integer(p))[[4]]
-  nmon <- .Fortran("nmons",p,npatt,r,nmdp,sj,integer(p))[[6]]
-  last <- .Fortran("lasts",p,npatt,sj,integer(npatt))[[4]]
-  tmp <- .Fortran("layers",p,sj,integer(p),integer(1))
+  sj <- .Fortran("sjn",p,npatt,r,integer(p),PACKAGE="norm")[[4]]
+  nmon <- .Fortran("nmons",p,npatt,r,nmdp,sj,integer(p),PACKAGE="norm")[[6]]
+  last <- .Fortran("lasts",p,npatt,sj,integer(npatt),PACKAGE="norm")[[4]]
+  tmp <- .Fortran("layers",p,sj,integer(p),integer(1),PACKAGE="norm")
   layer <- tmp[[3]]; nlayer <- tmp[[4]]
 # return list
   list(x=x,n=n,p=p,r=r,nmis=nmis,ro=ro,mdpst=mdpst,
@@ -103,7 +103,7 @@ em.norm <- function(s,start,showits=TRUE ,maxits=1000,criterion=.0001,
      prior){
   s$x <- .na.to.snglcode(s$x,999)
   if(missing(start)){
-    start <- .Fortran("stvaln",s$d,numeric(s$d),s$p,s$psi)[[2]]}
+    start <- .Fortran("stvaln",s$d,numeric(s$d),s$p,s$psi,PACKAGE="norm")[[2]]}
   if(missing(prior)){
     mle <- as.integer(1)
     tau <- numeric(1); m <- numeric(1); mu0 <- numeric(s$p);
@@ -115,7 +115,7 @@ em.norm <- function(s,start,showits=TRUE ,maxits=1000,criterion=.0001,
     lambdainv <- as.numeric(prior[[4]])}
   tmp <- as.integer(numeric(s$p))
   tobs <- .Fortran("tobsn",s$d,numeric(s$d),s$p,s$psi,s$n,s$x,s$npatt,
-    s$r,s$mdpst,s$nmdp,tmp)[[2]]
+    s$r,s$mdpst,s$nmdp,tmp,PACKAGE="norm")[[2]]
 # iterate to mle
   it <- 0; converged <- FALSE
   if(showits) cat(paste("Iterations of EM:","\n"))
@@ -123,7 +123,7 @@ em.norm <- function(s,start,showits=TRUE ,maxits=1000,criterion=.0001,
   old <- start
   start <- .Fortran("emn",s$d,old,start,tobs,s$p,s$psi,s$n,
     s$x,s$npatt,s$r,s$mdpst,s$nmdp,tmp,tmp,numeric(s$p),
-    mle,tau,m,mu0,lambdainv)[[3]]
+    mle,tau,m,mu0,lambdainv,PACKAGE="norm")[[3]]
 # print iteration number
   it <- it+1; if(showits) cat(paste(format(it),"...",sep=""))
   converged <- max(abs(old-start))<=criterion}
@@ -135,7 +135,7 @@ logpost.norm <- function(s,theta,prior){
   s$x <- .na.to.snglcode(s$x,999)
   l1 <- .Fortran("lobsn",s$d,theta,numeric(s$d),s$p,s$psi,s$n,s$x,
     s$npatt,s$r,s$mdpst,s$nmdp,as.integer(numeric(s$p)),numeric(s$p),
-    0)[[14]]
+    0,PACKAGE="norm")[[14]]
   if(!(missing(prior))){
   tau <- as.numeric(prior[[1]]); m <- as.numeric(prior[[2]])
   mu0 <- as.numeric(prior[[3]]); lambdainv <- as.numeric(prior[[4]])}
@@ -143,14 +143,14 @@ logpost.norm <- function(s,theta,prior){
     tau <- as.numeric(0); m <- as.numeric(-1); mu0 <- numeric(s$p)
     lambdainv <- matrix(0,s$p,s$p)}
   l2 <- .Fortran("lprin",s$d,theta,s$p,s$psi,numeric(s$p),tau,m,mu0,
-    lambdainv,0)[[10]]
+    lambdainv,0,PACKAGE="norm")[[10]]
   l1+l2}
 #***********************************************************************
 # Calculates observed-data loglikelihood at theta
 loglik.norm <- function(s,theta){
   s$x <- .na.to.snglcode(s$x,999)
   .Fortran("lobsn",s$d,theta,numeric(s$d),s$p,s$psi,s$n,s$x,s$npatt,
-    s$r,s$mdpst,s$nmdp,as.integer(numeric(s$p)),numeric(s$p),0)[[14]]}
+    s$r,s$mdpst,s$nmdp,as.integer(numeric(s$p)),numeric(s$p),0,PACKAGE="norm")[[14]]}
 #***********************************************************************
 # Simulate a value of theta from a normal-inverted Wishart
 # distribution
@@ -162,7 +162,7 @@ ninvwish <- function(s,params){
     tmp <- as.vector(s$psi[2:(s$p+1),2:(s$p+1)])
     pri[tmp] <- as.vector(lambdainv)
     .Fortran("ninvwn",s$d,pri,tau,m,s$p,s$psi,
-       numeric((s$p)^2),tmpr,numeric(s$d),tmpi)[[2]]}
+       numeric((s$p)^2),tmpr,numeric(s$d),tmpi,PACKAGE="norm")[[2]]}
 #***********************************************************************
 # Data augmentation for the multivariate normal.
 # Produces a new draw of theta from its posterior distribution. 
@@ -170,7 +170,7 @@ da.norm <- function(s,start,prior,steps=1,showits=FALSE ,return.ymis=FALSE ){
   s$x <- .na.to.snglcode(s$x,999)
   tmpi <- as.integer(numeric(s$p)); tmpr <- as.double((numeric(s$p)))
   tobs <- .Fortran("tobsn",s$d,numeric(s$d),s$p,s$psi,s$n,s$x,s$npatt,
-    s$r,s$mdpst,s$nmdp,tmpi)[[2]]
+    s$r,s$mdpst,s$nmdp,tmpi,PACKAGE="norm")[[2]]
   if(missing(prior)){
     tau <- 0; m <- -1; mu0 <- numeric(s$p);lambdainv <- matrix(0,s$p,s$p)}
   if(!(missing(prior))){
@@ -183,10 +183,10 @@ da.norm <- function(s,start,prior,steps=1,showits=FALSE ,return.ymis=FALSE ){
   for(i in 1:steps){
     if(showits) cat(paste(format(i),"...",sep=""))
     tmp <- .Fortran("is1n",s$d,start,start,tobs,s$p,s$psi,s$n,s$x,
-      s$npatt,s$r,s$mdpst,s$nmdp,tmpi,tmpi,tmpr,start)
+      s$npatt,s$r,s$mdpst,s$nmdp,tmpi,tmpi,tmpr,start,PACKAGE="norm")
     start <- tmp[[3]]
     start <- .Fortran("ps1n",s$d,start,m,tau,pri,s$p,s$psi,s$n,
-      matrix(0,s$p,s$p),tmpr,start,tmpi)[[5]]}
+      matrix(0,s$p,s$p),tmpr,start,tmpi,PACKAGE="norm")[[5]]}
   if(showits)cat("\n")
   if(return.ymis){
     ymis <- tmp[[8]]*matrix(s$sdv,s$n,s$p,TRUE)+matrix(s$xbar,s$n,s$p,TRUE)
@@ -199,9 +199,9 @@ imp.norm <- function(s,theta,x){
   s$x <- .na.to.snglcode(s$x,999)
   tmpi <- as.integer(numeric(s$p)); tmpr <- as.double((numeric(s$p)))
   tobs <- .Fortran("tobsn",s$d,numeric(s$d),s$p,s$psi,s$n,s$x,s$npatt,
-    s$r,s$mdpst,s$nmdp,tmpi)[[2]]
+    s$r,s$mdpst,s$nmdp,tmpi,PACKAGE="norm")[[2]]
   s$x <- .Fortran("is1n",s$d,theta,theta,tobs,s$p,s$psi,s$n,s$x,
-      s$npatt,s$r,s$mdpst,s$nmdp,tmpi,tmpi,tmpr,theta)[[8]]
+      s$npatt,s$r,s$mdpst,s$nmdp,tmpi,tmpi,tmpr,theta,PACKAGE="norm")[[8]]
   s$x <- s$x*matrix(s$sdv,s$n,s$p,TRUE)+matrix(s$xbar,s$n,s$p,TRUE)
   s$x <- s$x[s$ro,]
   if(!missing(x))x[is.na(x)] <- s$x[is.na(x)]
@@ -214,17 +214,17 @@ mda.norm <- function(s,theta,steps=1,showits=FALSE ){
   s$x <- .na.to.snglcode(s$x,999)
   tobs <- .Fortran("tobsmn",s$p,s$psi,s$n,s$x,s$npatt,s$r,s$mdpst,s$nmdp,
     s$last,integer(s$p),s$sj,s$layer,s$nlayer,s$d,
-    matrix(0,s$nlayer,s$d))[[15]]
+    matrix(0,s$nlayer,s$d),PACKAGE="norm")[[15]]
   if(showits) cat(paste("Steps of Monotone Data Augmentation:",
     "\n")) 
   for(i in 1:steps){
     if(showits) cat(paste(format(i),"...",sep=""))
     s$x <- .Fortran("is2n",s$d,theta,s$p,s$psi,s$n,s$x,s$npatt,
       s$r,s$mdpst,s$nmdp,s$sj,s$last,integer(s$p),integer(s$p),
-      double(s$p),theta)[[6]]
+      double(s$p),theta,PACKAGE="norm")[[6]]
     theta <- .Fortran("ps2n",s$p,s$psi,s$n,s$x,s$npatt,s$r,s$mdpst,
       s$nmdp,integer(s$p),integer(s$p),s$nmon,s$sj,s$nlayer,s$d,
-      tobs,numeric(s$d),numeric(s$d),numeric(s$p+1),numeric(s$d))[[19]]}
+      tobs,numeric(s$d),numeric(s$d),numeric(s$p+1),numeric(s$d),PACKAGE="norm")[[19]]}
   if(showits)cat("\n")
   theta}
 #***********************************************************************
@@ -233,7 +233,7 @@ mda.norm <- function(s,theta,steps=1,showits=FALSE ){
 rngseed <- function(seed){
   seed <- as.integer(seed)
   if(seed<=0)stop("Seed must be a positive integer")
-  tmp <- .Fortran("rngs",seed)
+  tmp <- .Fortran("rngs",seed,PACKAGE="norm")
   invisible()}
 #***********************************************************************
 # multiple imputation inference
