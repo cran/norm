@@ -263,6 +263,6 @@ mi.inference <- function(est,std.err,confidence=.95){
 
 # Added function:
 
-".First.lib" <-
-function(lib, pkg) {
-   library.dynam("norm", pkg, lib) }
+# ".First.lib" <-
+# function(lib, pkg) {
+#    library.dynam("norm", pkg, lib) }
