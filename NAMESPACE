@@ -1,4 +1,4 @@
-# last modified 2012-08-30 by J. Fox
+# last modified 2012-09-02 by J. Fox
 
 useDynLib(norm)
 useDynLib(norm, ctrsc, mkpsi,  swp, initn, stvaln, tobsn, emn, moden, lprin,lobsn,swpobs,
@@ -8,4 +8,4 @@ useDynLib(norm, ctrsc, mkpsi,  swp, initn, stvaln, tobsn, emn, moden, lprin,lobs
 
 export(prelim.norm, getparam.norm, makeparam.norm,
        em.norm, logpost.norm, loglik.norm, ninvwish, da.norm, imp.norm, mda.norm,
-       rngseed, mi.inference)
+       rngseed, mi.inference, .code.to.na, .na.to.snglcode)
