@@ -13,7 +13,7 @@ extern void F77_NAME(chols)(void *, void *, void *, void *, void *, void *);
 extern void F77_NAME(ctrsc)(void *, void *, void *, void *, void *, void *);
 extern void F77_NAME(emn)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void F77_NAME(gamm)(void *);
-extern void F77_NAME(gauss)();
+extern void F77_NAME(gauss)(void);
 extern void F77_NAME(gtmc)(void *, void *, void *, void *, void *, void *, void *);
 extern void F77_NAME(gtoc)(void *, void *, void *, void *, void *, void *, void *);
 extern void F77_NAME(is1n)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);

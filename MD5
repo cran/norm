@@ -1,8 +1,8 @@
-09958c983bc6128649bbf3113b78e6f3 *DESCRIPTION
+558fb0701416f363f4a00187aadea342 *DESCRIPTION
 c30beeea63ac24f8cdac43a50526c984 *NAMESPACE
 9db586339635b80e07184b1a5b6715d9 *R/norm.R
 e30361fa944f69b6341c32ea96d2c289 *R/startup.R
-008bccf6c611d8701be3eda87d5b6326 *data/mdata.rda
+c3f5d1a21817eaa720626f0366fa36b0 *data/mdata.rda
 2d4be3ea05005c9b402adc664a679ece *man/code.to.na.Rd
 ffa2c7ef4a76f77d39f85fec43307f7d *man/da.norm.Rd
 69fd2bd4d3e66e4dab2b0cd2e55695c3 *man/em.norm.Rd
@@ -18,5 +18,5 @@ a995d8ff4a86f7c992a9873c784c300f *man/mi.inference.Rd
 f2c10240daf74b47a7c418f105ff9b84 *man/ninvwish.Rd
 859431cd464c6d96aae63ebb17f155c3 *man/prelim.norm.Rd
 869e0a987aa3d0521e672721be4c9e26 *man/rngseed.Rd
-5d97cecc1f4c4dbd2e115b06c591d6de *src/init.c
+1e49feeeb832e204a4c8ea045b5c60e1 *src/init.c
 0cd480004b779f6309615768a747bd48 *src/norm.f
