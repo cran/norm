@@ -170,7 +170,7 @@ C real x(n,p) was changed to the line below
            call moden(d,t,p,psi,n,tau,m,mu,lmbinv)
         endif
         do 210 i=2,d
-           t(i)=t(i)/dfloat(n)
+           t(i)=t(i)/dble(n)
 210     continue
         call swp(d,t,0,p,psi,p,1)
         return
@@ -181,20 +181,20 @@ C Alters the sufficient statistics to yield a posterior mode.
         integer d,p,psi(0:p,0:p),n
         double precision t(d),tau,m,mu(p),lmbinv(p,p),c,e
         do 5 j=1,p
-           mu(j)=mu(j)*dfloat(n)
+           mu(j)=mu(j)*dble(n)
 5       continue
-        c=tau/(dfloat(n)*(tau+dfloat(n)))
-        e=dfloat(n)/(dfloat(n)+m+dfloat(p)+2.)
+        c=tau/(dble(n)*(tau+dble(n)))
+        e=dble(n)/(dble(n)+m+dble(p)+2.)
         do 20 j=1,p
            do 10 k=j,p
               t(psi(j,k))=t(psi(j,k))+lmbinv(j,k)-(t(psi(0,j))*
-     /           t(psi(0,k)))/dfloat(n)
+     /           t(psi(0,k)))/dble(n)
               t(psi(j,k))=t(psi(j,k))+c*(t(psi(0,j))-mu(j))*
      /           (t(psi(0,k))-mu(k))
               t(psi(j,k))=t(psi(j,k))*e
 10         continue
 20      continue
-        c=dfloat(n)/(tau+dfloat(n))
+        c=dble(n)/(tau+dble(n))
         e=1.-c
         do 30 j=1,p
            t(psi(0,j))=c*t(psi(0,j))+e*mu(j)
@@ -202,7 +202,7 @@ C Alters the sufficient statistics to yield a posterior mode.
         do 50 j=1,p
            do 40 k=j,p
               t(psi(j,k))=t(psi(j,k))+(t(psi(0,j))*
-     /           t(psi(0,k)))/dfloat(n)
+     /           t(psi(0,k)))/dble(n)
 40         continue
 50      continue
         return
@@ -213,7 +213,7 @@ C Evaluates log-prior at theta
         integer d,p,psi(0:p,0:p)
         double precision theta(d),c(p),logpri,logdet,trace
         double precision tau,m,mu(p),lmbinv(p,p)
-        logdet=dfloat(0)  
+        logdet=dble(0)  
         do 5 j=1,p
            c(j)=theta(psi(0,j))-mu(j)
 5       continue
@@ -221,8 +221,8 @@ C Evaluates log-prior at theta
            logdet=logdet+log(theta(psi(j,j)))
            call swp(d,theta,j,p,psi,p,1)
 10      continue
-        logpri=-logdet*(m+dfloat(p)+2.)/2.
-        trace=dfloat(0)
+        logpri=-logdet*(m+dble(p)+2.)/2.
+        trace=dble(0)
         do 120 j=1,p
            do 110 k=1,p
               trace=trace-theta(psi(j,k))*(lmbinv(j,k)+tau*c(j)*c(k))
@@ -240,8 +240,8 @@ C Evaluates observed-data loglikelihood at theta
 C real x(n,p) was changed to the line below
         double precision x(n,p)
         double precision theta(d),t(d),c(p),loglik,logdet,trace
-        loglik=dfloat(0)
-        logdet=dfloat(0)  
+        loglik=dble(0)
+        logdet=dble(0)  
         do 5 j=1,p
            c(j)=theta(psi(0,j))
 5       continue
@@ -268,14 +268,14 @@ C real x(n,p) was changed to the line below
 40               continue
 50            continue
 100        continue
-           trace=dfloat(0)
+           trace=dble(0)
            do 120 j=1,noc
               do 110 k=1,noc
                  trace=trace-(theta(psi(oc(j),oc(k)))*
      /              t(psi(oc(j),oc(k))))
 110           continue
 120        continue
-           loglik=loglik-(dfloat(nmdp(patt))*logdet/2.)-(trace/2.)
+           loglik=loglik-(dble(nmdp(patt))*logdet/2.)-(trace/2.)
 200     continue
         return
         end
@@ -444,7 +444,7 @@ C real x(n,p),z(p),junk
 200     continue
 C Divide t by n
         do 210 i=2,d
-           t(i)=t(i)/dfloat(n)
+           t(i)=t(i)/dble(n)
 210     continue
         return
         end
@@ -514,17 +514,17 @@ C real z(p)
         call swp(d,t,0,p,psi,p,1)
         do 20 j=1,p
            do 10 k=j,p
-              theta(psi(j,k))=theta(psi(j,k))+dfloat(n)*t(psi(j,k))
-     /     + tau*dfloat(n)/(tau+dfloat(n))*
+              theta(psi(j,k))=theta(psi(j,k))+dble(n)*t(psi(j,k))
+     /     + tau*dble(n)/(tau+dble(n))*
      /     (t(psi(0,j))-theta(psi(0,j)))*(t(psi(0,k))-theta(psi(0,k)))
 10         continue
 20      continue
         do 30 j=1,p
-           theta(psi(0,j))=dfloat(n)*t(psi(0,j))/(dfloat(n)+tau)
-     /     + tau*theta(psi(0,j))/(dfloat(n)+tau)
+           theta(psi(0,j))=dble(n)*t(psi(0,j))/(dble(n)+tau)
+     /     + tau*theta(psi(0,j))/(dble(n)+tau)
 30      continue
-        tau=tau+dfloat(n)
-        m=m+dfloat(n)
+        tau=tau+dble(n)
+        m=m+dble(n)
         call ninvwn(d,theta,tau,m,p,psi,mat,z,b,c)
         return
         end
